@@ -21,7 +21,8 @@ export class TodoStack extends cdk.Stack {
             code: lambda.Code.fromAsset('lambda'),
             handler: 'index.handler',
             environment: {
-                TABLE_NAME: table.tableName
+                TABLE_NAME: table.tableName,
+                ROLE_ARN: 'PLACEHOLDER'
             }
         });
 
