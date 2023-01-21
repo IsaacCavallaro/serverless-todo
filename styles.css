@@ -1,0 +1,156 @@
+#todo-app {
+    width: 300px;
+    margin: 0 auto;
+}
+  
+#todo-list {
+    list-style: none;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0;
+}
+  
+#todo-list li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+  
+input[type="text"],
+button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.hide {
+    display: none;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+.completed{
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+.error {
+    border: 2px solid red;
+  }
+  
+  
+/* Mobile-first styles */
+
+.due-date-container, .priority-container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 10px;
+}
+
+.due-date-label, .priority-label {
+    flex-basis: 20%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.due-date, .priority {
+    flex-basis: 80%;
+    margin-left: 10px;
+}
+
+.todo-app-container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-todo, .due-date, .priority, .add-button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+.new-todo {
+  flex-basis: 60%;
+}
+
+.due-date {
+  flex-basis: 20%;
+}
+
+.priority {
+  flex-basis: 20%;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+.todo-list li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.todo-list li span {
+  flex-basis: 80%;
+}
+
+.todo-list li button {
+  flex-basis: 10%;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Media queries */
+@media (min-width: 600px) {
+    .new-todo {
+        flex-basis: 40%;
+    }
+    .due-date {
+        flex-basis: 20%;
+    }
+    .priority {
+        flex-basis: 20%;
+    }
+}
+
+  
+  
+  
+  

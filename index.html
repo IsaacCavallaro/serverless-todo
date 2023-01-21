@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-do List</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="todo-app-container">
+        <h2 class="app-title">To-do List</h2>
+        <div class="input-container">
+            <input type="text" id="new-todo" class="new-todo" placeholder="Add a new to-do">
+            <div class="due-date-container">
+                <label for="due-date" class="due-date-label">Due Date:</label>
+                <input type="date" id="due-date" class="due-date">
+            </div>
+            <div class="priority-container">
+                <label for="priority" class="priority-label">Priority:</label>
+                <select id="priority" class="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <button id="add-button" class="add-button">Add</button>
+        </div>
+        <ul id="todo-list" class="todo-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
