@@ -1,0 +1,101 @@
+{
+  "version": "29.0.0",
+  "artifacts": {
+    "TodoStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "TodoStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "TodoStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://909072294671/ap-southeast-2",
+      "properties": {
+        "templateFile": "TodoStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-deploy-role-909072294671-ap-southeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-cfn-exec-role-909072294671-ap-southeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/eabaebd3cefd65796f0b8023cb2025fe23800402b072ec5b7bd872c20ef0dfbc.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "TodoStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-lookup-role-909072294671-ap-southeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "serverless-todo-stack"
+      },
+      "dependencies": [
+        "TodoStack.assets"
+      ],
+      "metadata": {
+        "/TodoStack/todos-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todostableCA1914CD"
+          }
+        ],
+        "/TodoStack/tableName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tableName"
+          }
+        ],
+        "/TodoStack/DynamoDBFunctionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DynamoDBFunctionRole65523859"
+          }
+        ],
+        "/TodoStack/DynamoDBFunctionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DynamoDBFunctionRoleDefaultPolicyA8D87008"
+          }
+        ],
+        "/TodoStack/todoFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoFunction24E2C7C6"
+          }
+        ],
+        "/TodoStack/functionArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "functionArn"
+          }
+        ],
+        "/TodoStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/TodoStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/TodoStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "TodoStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as iam from 'aws-cdk-lib/aws-iam';
+
 
 export class TodoStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -15,15 +17,19 @@ export class TodoStack extends cdk.Stack {
 
         new cdk.CfnOutput(this, 'tableName', { value: table.tableName });
 
-        // Lambda function
+        const role = new iam.Role(this, 'DynamoDBFunctionRole', {
+          assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+          managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonDynamoDBFullAccess')],
+        });
+        
         const todoFunction = new lambda.Function(this, 'todoFunction', {
-            runtime: lambda.Runtime.NODEJS_14_X,
-            code: lambda.Code.fromAsset('lambda'),
-            handler: 'index.handler',
-            environment: {
-                TABLE_NAME: table.tableName,
-                ROLE_ARN: 'PLACEHOLDER'
-            }
+          runtime: lambda.Runtime.NODEJS_16_X,
+          code: lambda.Code.fromAsset('lambda'),
+          handler: 'index.handler',
+          environment: {
+            TABLE_NAME: table.tableName
+          },
+          role: role
         });
 
         // Give the Lambda function permissions to access the DynamoDB table
