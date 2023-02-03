@@ -15,10 +15,14 @@
       "AttributeType": "N"
      }
     ],
-    "BillingMode": "PAY_PER_REQUEST"
+    "ProvisionedThroughput": {
+     "ReadCapacityUnits": 5,
+     "WriteCapacityUnits": 5
+    },
+    "TableName": "todos-table"
    },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete",
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "TodoStack/todos-table/Resource"
    }
@@ -89,6 +93,19 @@
          "Ref": "AWS::NoValue"
         }
        ]
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "LogGroupF5B46931",
+         "Arn"
+        ]
+       }
       }
      ],
      "Version": "2012-10-17"
@@ -109,7 +126,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-909072294671-ap-southeast-2",
-     "S3Key": "0c7156c8fb95876757b65a7b213932f73dd7f6cbe2e0c05458a21e08590f6f24.zip"
+     "S3Key": "42ddccc40a7b1b83a2cc4909eeb57fc974b6a18402e6f1af9cccb671d6cd267e.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -133,15 +150,141 @@
    ],
    "Metadata": {
     "aws:cdk:path": "TodoStack/todoFunction/Resource",
-    "aws:asset:path": "asset.0c7156c8fb95876757b65a7b213932f73dd7f6cbe2e0c05458a21e08590f6f24",
+    "aws:asset:path": "asset.42ddccc40a7b1b83a2cc4909eeb57fc974b6a18402e6f1af9cccb671d6cd267e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
+   }
+  },
+  "todoFunctionLogRetention0A35ACCE": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "todoFunction24E2C7C6"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todoFunction/LogRetention/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteRetentionPolicy",
+        "logs:PutRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs14.x",
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-909072294671-ap-southeast-2",
+     "S3Key": "e45ee2082d227db1b6f0292696ce5ce2b061c105d15efb341925ca040d1feb68.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.e45ee2082d227db1b6f0292696ce5ce2b061c105d15efb341925ca040d1feb68",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LogGroupF5B46931": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "serverless-todo-logs",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/LogGroup/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zVOyw6CMBD8Fu5lFUxIPIqJVw16J0tbSaG0hm01hPDvlqKneexkZ3IocsgT/FDKRZ9q1cB8d8h7Fqx6FpPBwYpgPrDRkp2fJpKFKRxgruzmRbxZrfi0yo0tTOPQCIT54g13ypr19ucLo0ONRNIRnFYIGkrPe+lKpFBQSbJ+5PH/1buXdyzmwrpWmTbW/iILM1ZI6Gj3zgrIjrBPOlIqHb1xapBQbfgFp+y8IuwAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zVPTW/CMAz9Lbu73gAJaccxaVyQQB13lCZeFZrGqE6GUJT/vjQdp/dh+9le43aDby/qLo02Q+Nsh+k7KD1AsS7JPLwa2RTzrDpH8PnjK8lg1Yip5cWreGJn9WOWC8vg1NgZhekreh0s+7n25Blkc1EiFAQ/Zigad1EPFHZKCBz3gunAfUuBfJ0uYj9xvM0xT54ztCQcJ10POcZwiwFqYHmjt76v9/23ZPBsCK/y+rva4uq9fH4Va5splg0jYbvgH0seEeQVAQAA"
    },
    "Metadata": {
     "aws:cdk:path": "TodoStack/CDKMetadata/Default"

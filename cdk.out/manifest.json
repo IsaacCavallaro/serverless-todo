@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-deploy-role-909072294671-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-cfn-exec-role-909072294671-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/eabaebd3cefd65796f0b8023cb2025fe23800402b072ec5b7bd872c20ef0dfbc.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/d40adadcf3081da19137f073a4dc809c531ba03eb5f87e5a0a4d68a4c6db0213.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -34,6 +34,14 @@
         "TodoStack.assets"
       ],
       "metadata": {
+        "/TodoStack/todos-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "todostableCA1914CD"
+            }
+          }
+        ],
         "/TodoStack/todos-table/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -64,10 +72,40 @@
             "data": "todoFunction24E2C7C6"
           }
         ],
+        "/TodoStack/todoFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoFunctionLogRetention0A35ACCE"
+          }
+        ],
+        "/TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ],
+        "/TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+          }
+        ],
+        "/TodoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+          }
+        ],
         "/TodoStack/functionArn": [
           {
             "type": "aws:cdk:logicalId",
             "data": "functionArn"
+          }
+        ],
+        "/TodoStack/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogGroupF5B46931"
           }
         ],
         "/TodoStack/CDKMetadata/Default": [
