@@ -1,32 +1,18 @@
 {
- "Resources": {
-  "todostableCA1914CD": {
-   "Type": "AWS::DynamoDB::Table",
-   "Properties": {
-    "KeySchema": [
-     {
-      "AttributeName": "id",
-      "KeyType": "HASH"
-     }
-    ],
-    "AttributeDefinitions": [
-     {
-      "AttributeName": "id",
-      "AttributeType": "N"
-     }
-    ],
-    "ProvisionedThroughput": {
-     "ReadCapacityUnits": 5,
-     "WriteCapacityUnits": 5
-    },
-    "TableName": "todos-table"
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain",
-   "Metadata": {
-    "aws:cdk:path": "TodoStack/todos-table/Resource"
-   }
+ "Outputs": {
+  "tableName": {
+   "Value": "todos-table"
   },
+  "functionArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "todoFunction24E2C7C6",
+     "Arn"
+    ]
+   }
+  }
+ },
+ "Resources": {
   "DynamoDBFunctionRole65523859": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -83,12 +69,7 @@
        ],
        "Effect": "Allow",
        "Resource": [
-        {
-         "Fn::GetAtt": [
-          "todostableCA1914CD",
-          "Arn"
-         ]
-        },
+        "arn:aws:dynamodb:ap-southeast-2:909072294671:table/todos-table",
         {
          "Ref": "AWS::NoValue"
         }
@@ -126,7 +107,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-909072294671-ap-southeast-2",
-     "S3Key": "42ddccc40a7b1b83a2cc4909eeb57fc974b6a18402e6f1af9cccb671d6cd267e.zip"
+     "S3Key": "a296a6260fa66a1743501e7e1262e1b9cdab8b8361fb030b17c1fada02dc4e40.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -136,9 +117,7 @@
     },
     "Environment": {
      "Variables": {
-      "TABLE_NAME": {
-       "Ref": "todostableCA1914CD"
-      }
+      "TABLE_NAME": "todos-table"
      }
     },
     "Handler": "index.handler",
@@ -150,7 +129,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "TodoStack/todoFunction/Resource",
-    "aws:asset:path": "asset.42ddccc40a7b1b83a2cc4909eeb57fc974b6a18402e6f1af9cccb671d6cd267e",
+    "aws:asset:path": "asset.a296a6260fa66a1743501e7e1262e1b9cdab8b8361fb030b17c1fada02dc4e40",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -284,25 +263,10 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zVPTW/CMAz9Lbu73gAJaccxaVyQQB13lCZeFZrGqE6GUJT/vjQdp/dh+9le43aDby/qLo02Q+Nsh+k7KD1AsS7JPLwa2RTzrDpH8PnjK8lg1Yip5cWreGJn9WOWC8vg1NgZhekreh0s+7n25Blkc1EiFAQ/Zigad1EPFHZKCBz3gunAfUuBfJ0uYj9xvM0xT54ztCQcJ10POcZwiwFqYHmjt76v9/23ZPBsCK/y+rva4uq9fH4Va5splg0jYbvgH0seEeQVAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zVPywrCMBD8Fu/p+gLBoxX0IijxA0qariU2TUo3USTk301TPc0MszPMbmC3hdVCvKmQTVdoVUO4OyE7xpGsHyWy48NcvRu8Y+mqCkr0ELjV2ch4s1rJzyRnFpkWfd0ICCdvpFPWTN6fR0bbShChIzhMkDSUXnboSkHItG0JwsW2HB2anE7iPFo/TDV/HiPL6TS2VabNY36LIzO2QXjS8rXewXqf/nuSUsXoU12PwGf8Alj0zTH7AAAA"
    },
    "Metadata": {
     "aws:cdk:path": "TodoStack/CDKMetadata/Default"
-   }
-  }
- },
- "Outputs": {
-  "tableName": {
-   "Value": {
-    "Ref": "todostableCA1914CD"
-   }
-  },
-  "functionArn": {
-   "Value": {
-    "Fn::GetAtt": [
-     "todoFunction24E2C7C6",
-     "Arn"
-    ]
    }
   }
  },

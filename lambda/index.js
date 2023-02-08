@@ -19,6 +19,8 @@ exports.handler = async (event) => {
         // Extract the to-do item from the request body
         const item = JSON.parse(event.body).item;
 
+        console.log(event.body);
+
         // Generate a unique ID for the item
         const id = Date.now().toString();
 

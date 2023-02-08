@@ -3,20 +3,14 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 
 export class TodoStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         // DynamoDB Table
-        const table = new dynamodb.Table(this, 'todos-table', {
-            partitionKey: { name: 'id', type: dynamodb.AttributeType.NUMBER },
-            billingMode: dynamodb.BillingMode.PROVISIONED,
-            readCapacity: 5,
-            writeCapacity: 5,
-            removalPolicy: cdk.RemovalPolicy.RETAIN,
-            tableName: 'todos-table',
-        });
+        const table = dynamodb.Table.fromTableName(this, 'todos-table', 'todos-table');
 
         new cdk.CfnOutput(this, 'tableName', { value: table.tableName });
 
@@ -50,5 +44,16 @@ export class TodoStack extends cdk.Stack {
             actions: ['logs:CreateLogStream', 'logs:PutLogEvents'],
             resources: [logGroup.logGroupArn]
         }));
+
+        const api = new apigateway.RestApi(this, 'todo-api', {
+            restApiName: 'Todo API'
+          });
+          
+          const lambdaIntegration = new apigateway.LambdaIntegration(todoFunction);
+          
+          const todo = api.root.addResource('todo');
+          
+          todo.addMethod('GET', lambdaIntegration);
+          todo.addMethod('POST', lambdaIntegration);
     }
 }

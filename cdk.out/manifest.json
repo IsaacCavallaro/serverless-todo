@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-deploy-role-909072294671-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-cfn-exec-role-909072294671-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/d40adadcf3081da19137f073a4dc809c531ba03eb5f87e5a0a4d68a4c6db0213.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/2a3befe8b3b14676fe07842146d256d951a8b464259c4766dce15b2f8c2470bd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -34,20 +34,6 @@
         "TodoStack.assets"
       ],
       "metadata": {
-        "/TodoStack/todos-table": [
-          {
-            "type": "aws:cdk:hasPhysicalName",
-            "data": {
-              "Ref": "todostableCA1914CD"
-            }
-          }
-        ],
-        "/TodoStack/todos-table/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "todostableCA1914CD"
-          }
-        ],
         "/TodoStack/tableName": [
           {
             "type": "aws:cdk:logicalId",

@@ -11,48 +11,8 @@
           "todos-table": {
             "id": "todos-table",
             "path": "TodoStack/todos-table",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "TodoStack/todos-table/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-                  "aws:cdk:cloudformation:props": {
-                    "keySchema": [
-                      {
-                        "attributeName": "id",
-                        "keyType": "HASH"
-                      }
-                    ],
-                    "attributeDefinitions": [
-                      {
-                        "attributeName": "id",
-                        "attributeType": "N"
-                      }
-                    ],
-                    "provisionedThroughput": {
-                      "readCapacityUnits": 5,
-                      "writeCapacityUnits": 5
-                    },
-                    "tableName": "todos-table"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
-                  "version": "2.63.0"
-                }
-              },
-              "ScalingRole": {
-                "id": "ScalingRole",
-                "path": "TodoStack/todos-table/ScalingRole",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.63.0"
-                }
-              }
-            },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "fqn": "aws-cdk-lib.Resource",
               "version": "2.63.0"
             }
           },
@@ -144,12 +104,7 @@
                               ],
                               "Effect": "Allow",
                               "Resource": [
-                                {
-                                  "Fn::GetAtt": [
-                                    "todostableCA1914CD",
-                                    "Arn"
-                                  ]
-                                },
+                                "arn:aws:dynamodb:ap-southeast-2:909072294671:table/todos-table",
                                 {
                                   "Ref": "AWS::NoValue"
                                 }
@@ -234,7 +189,7 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": "cdk-hnb659fds-assets-909072294671-ap-southeast-2",
-                      "s3Key": "42ddccc40a7b1b83a2cc4909eeb57fc974b6a18402e6f1af9cccb671d6cd267e.zip"
+                      "s3Key": "a296a6260fa66a1743501e7e1262e1b9cdab8b8361fb030b17c1fada02dc4e40.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -244,9 +199,7 @@
                     },
                     "environment": {
                       "variables": {
-                        "TABLE_NAME": {
-                          "Ref": "todostableCA1914CD"
-                        }
+                        "TABLE_NAME": "todos-table"
                       }
                     },
                     "handler": "index.handler",
