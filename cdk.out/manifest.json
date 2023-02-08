@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-deploy-role-909072294671-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::909072294671:role/cdk-hnb659fds-cfn-exec-role-909072294671-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/2a3befe8b3b14676fe07842146d256d951a8b464259c4766dce15b2f8c2470bd.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-909072294671-ap-southeast-2/ca13d67b7745a87afc25cec31f1b78a00a2085b914e6ab2e9621ca0fab2e9e7e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -92,6 +92,72 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "LogGroupF5B46931"
+          }
+        ],
+        "/TodoStack/todo-api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapiA0696EAD"
+          }
+        ],
+        "/TodoStack/todo-api/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapiDeployment10609ED7ef765e15ee62222405d8c024bc58cb32"
+          }
+        ],
+        "/TodoStack/todo-api/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapiDeploymentStageprod07CD4BAD"
+          }
+        ],
+        "/TodoStack/todo-api/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapiEndpoint12E3775A"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoE3FF302A"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/GET/ApiPermission.TodoStacktodoapi2D07E576.GET..todo": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoGETApiPermissionTodoStacktodoapi2D07E576GETtodo777582D9"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/GET/ApiPermission.Test.TodoStacktodoapi2D07E576.GET..todo": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoGETApiPermissionTestTodoStacktodoapi2D07E576GETtodo4A0AB4B8"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoGETE865F546"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/POST/ApiPermission.TodoStacktodoapi2D07E576.POST..todo": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoPOSTApiPermissionTodoStacktodoapi2D07E576POSTtodoC2D4BA3D"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/POST/ApiPermission.Test.TodoStacktodoapi2D07E576.POST..todo": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoPOSTApiPermissionTestTodoStacktodoapi2D07E576POSTtodo667B69F3"
+          }
+        ],
+        "/TodoStack/todo-api/Default/todo/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "todoapitodoPOSTC5615BFA"
           }
         ],
         "/TodoStack/CDKMetadata/Default": [

@@ -10,6 +10,28 @@
      "Arn"
     ]
    }
+  },
+  "todoapiEndpoint12E3775A": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "todoapiA0696EAD"
+      },
+      ".execute-api.ap-southeast-2.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "todoapiDeploymentStageprod07CD4BAD"
+      },
+      "/"
+     ]
+    ]
+   }
   }
  },
  "Resources": {
@@ -260,10 +282,259 @@
     "aws:cdk:path": "TodoStack/LogGroup/Resource"
    }
   },
+  "todoapiA0696EAD": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Name": "Todo API"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Resource"
+   }
+  },
+  "todoapiDeployment10609ED7ef765e15ee62222405d8c024bc58cb32": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "RestApiId": {
+     "Ref": "todoapiA0696EAD"
+    },
+    "Description": "Automatically created by the RestApi construct"
+   },
+   "DependsOn": [
+    "todoapitodoGETE865F546",
+    "todoapitodoPOSTC5615BFA",
+    "todoapitodoE3FF302A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Deployment/Resource"
+   }
+  },
+  "todoapiDeploymentStageprod07CD4BAD": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "RestApiId": {
+     "Ref": "todoapiA0696EAD"
+    },
+    "DeploymentId": {
+     "Ref": "todoapiDeployment10609ED7ef765e15ee62222405d8c024bc58cb32"
+    },
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/DeploymentStage.prod/Resource"
+   }
+  },
+  "todoapitodoE3FF302A": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "todoapiA0696EAD",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "todo",
+    "RestApiId": {
+     "Ref": "todoapiA0696EAD"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/Resource"
+   }
+  },
+  "todoapitodoGETApiPermissionTodoStacktodoapi2D07E576GETtodo777582D9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "todoFunction24E2C7C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:ap-southeast-2:909072294671:",
+       {
+        "Ref": "todoapiA0696EAD"
+       },
+       "/",
+       {
+        "Ref": "todoapiDeploymentStageprod07CD4BAD"
+       },
+       "/GET/todo"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/GET/ApiPermission.TodoStacktodoapi2D07E576.GET..todo"
+   }
+  },
+  "todoapitodoGETApiPermissionTestTodoStacktodoapi2D07E576GETtodo4A0AB4B8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "todoFunction24E2C7C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:ap-southeast-2:909072294671:",
+       {
+        "Ref": "todoapiA0696EAD"
+       },
+       "/test-invoke-stage/GET/todo"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/GET/ApiPermission.Test.TodoStacktodoapi2D07E576.GET..todo"
+   }
+  },
+  "todoapitodoGETE865F546": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "HttpMethod": "GET",
+    "ResourceId": {
+     "Ref": "todoapitodoE3FF302A"
+    },
+    "RestApiId": {
+     "Ref": "todoapiA0696EAD"
+    },
+    "AuthorizationType": "NONE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "todoFunction24E2C7C6",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/GET/Resource"
+   }
+  },
+  "todoapitodoPOSTApiPermissionTodoStacktodoapi2D07E576POSTtodoC2D4BA3D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "todoFunction24E2C7C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:ap-southeast-2:909072294671:",
+       {
+        "Ref": "todoapiA0696EAD"
+       },
+       "/",
+       {
+        "Ref": "todoapiDeploymentStageprod07CD4BAD"
+       },
+       "/POST/todo"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/POST/ApiPermission.TodoStacktodoapi2D07E576.POST..todo"
+   }
+  },
+  "todoapitodoPOSTApiPermissionTestTodoStacktodoapi2D07E576POSTtodo667B69F3": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "todoFunction24E2C7C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:ap-southeast-2:909072294671:",
+       {
+        "Ref": "todoapiA0696EAD"
+       },
+       "/test-invoke-stage/POST/todo"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/POST/ApiPermission.Test.TodoStacktodoapi2D07E576.POST..todo"
+   }
+  },
+  "todoapitodoPOSTC5615BFA": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "HttpMethod": "POST",
+    "ResourceId": {
+     "Ref": "todoapitodoE3FF302A"
+    },
+    "RestApiId": {
+     "Ref": "todoapiA0696EAD"
+    },
+    "AuthorizationType": "NONE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "todoFunction24E2C7C6",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TodoStack/todo-api/Default/todo/POST/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zVPywrCMBD8Fu/p+gLBoxX0IijxA0qariU2TUo3USTk301TPc0MszPMbmC3hdVCvKmQTVdoVUO4OyE7xpGsHyWy48NcvRu8Y+mqCkr0ELjV2ch4s1rJzyRnFpkWfd0ICCdvpFPWTN6fR0bbShChIzhMkDSUXnboSkHItG0JwsW2HB2anE7iPFo/TDV/HiPL6TS2VabNY36LIzO2QXjS8rXewXqf/nuSUsXoU12PwGf8Alj0zTH7AAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02Qy07DMBBFv4W9M1AqVWLZgmBD1Sp8QOU6Q+rGL2Vsqsjyv2M7FGU1587Lc/0MmzU8PfAbNaIbGiXPEL88FwNrkWwYBbLXb3MI3gXPctcpSq4htlbVQo1Hq6SYipwpMcX1ueMQ34MRXlpTaks+4qglUVaJ0frEidATbEvIGnZBDOh3nJAp2xPET9u36NHU+Sw+RhtcWXTnxLiTPfd441O+DslvnawH/uEbOmUnnVeU7EJls321MsPddX18+QX/vEd/sV1JzZQSq4eXeWn6ZW9ixnYIV3r8WW1g9ZI/+kpSNmPITjRCO8dfxUUgIIQBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "TodoStack/CDKMetadata/Default"

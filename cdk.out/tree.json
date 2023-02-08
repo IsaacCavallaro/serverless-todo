@@ -419,6 +419,378 @@
               "version": "2.63.0"
             }
           },
+          "todo-api": {
+            "id": "todo-api",
+            "path": "TodoStack/todo-api",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "TodoStack/todo-api/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "Todo API"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
+                  "version": "2.63.0"
+                }
+              },
+              "Deployment": {
+                "id": "Deployment",
+                "path": "TodoStack/todo-api/Deployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TodoStack/todo-api/Deployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "todoapiA0696EAD"
+                        },
+                        "description": "Automatically created by the RestApi construct"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                      "version": "2.63.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+                  "version": "2.63.0"
+                }
+              },
+              "DeploymentStage.prod": {
+                "id": "DeploymentStage.prod",
+                "path": "TodoStack/todo-api/DeploymentStage.prod",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "TodoStack/todo-api/DeploymentStage.prod/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "todoapiA0696EAD"
+                        },
+                        "deploymentId": {
+                          "Ref": "todoapiDeployment10609ED7ef765e15ee62222405d8c024bc58cb32"
+                        },
+                        "stageName": "prod"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                      "version": "2.63.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+                  "version": "2.63.0"
+                }
+              },
+              "Endpoint": {
+                "id": "Endpoint",
+                "path": "TodoStack/todo-api/Endpoint",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.63.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "TodoStack/todo-api/Default",
+                "children": {
+                  "todo": {
+                    "id": "todo",
+                    "path": "TodoStack/todo-api/Default/todo",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TodoStack/todo-api/Default/todo/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "todoapiA0696EAD",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "todo",
+                            "restApiId": {
+                              "Ref": "todoapiA0696EAD"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.63.0"
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "TodoStack/todo-api/Default/todo/GET",
+                        "children": {
+                          "ApiPermission.TodoStacktodoapi2D07E576.GET..todo": {
+                            "id": "ApiPermission.TodoStacktodoapi2D07E576.GET..todo",
+                            "path": "TodoStack/todo-api/Default/todo/GET/ApiPermission.TodoStacktodoapi2D07E576.GET..todo",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "todoFunction24E2C7C6",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:ap-southeast-2:909072294671:",
+                                      {
+                                        "Ref": "todoapiA0696EAD"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "todoapiDeploymentStageprod07CD4BAD"
+                                      },
+                                      "/GET/todo"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.63.0"
+                            }
+                          },
+                          "ApiPermission.Test.TodoStacktodoapi2D07E576.GET..todo": {
+                            "id": "ApiPermission.Test.TodoStacktodoapi2D07E576.GET..todo",
+                            "path": "TodoStack/todo-api/Default/todo/GET/ApiPermission.Test.TodoStacktodoapi2D07E576.GET..todo",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "todoFunction24E2C7C6",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:ap-southeast-2:909072294671:",
+                                      {
+                                        "Ref": "todoapiA0696EAD"
+                                      },
+                                      "/test-invoke-stage/GET/todo"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.63.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TodoStack/todo-api/Default/todo/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "GET",
+                                "resourceId": {
+                                  "Ref": "todoapitodoE3FF302A"
+                                },
+                                "restApiId": {
+                                  "Ref": "todoapiA0696EAD"
+                                },
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "todoFunction24E2C7C6",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.63.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.63.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "TodoStack/todo-api/Default/todo/POST",
+                        "children": {
+                          "ApiPermission.TodoStacktodoapi2D07E576.POST..todo": {
+                            "id": "ApiPermission.TodoStacktodoapi2D07E576.POST..todo",
+                            "path": "TodoStack/todo-api/Default/todo/POST/ApiPermission.TodoStacktodoapi2D07E576.POST..todo",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "todoFunction24E2C7C6",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:ap-southeast-2:909072294671:",
+                                      {
+                                        "Ref": "todoapiA0696EAD"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "todoapiDeploymentStageprod07CD4BAD"
+                                      },
+                                      "/POST/todo"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.63.0"
+                            }
+                          },
+                          "ApiPermission.Test.TodoStacktodoapi2D07E576.POST..todo": {
+                            "id": "ApiPermission.Test.TodoStacktodoapi2D07E576.POST..todo",
+                            "path": "TodoStack/todo-api/Default/todo/POST/ApiPermission.Test.TodoStacktodoapi2D07E576.POST..todo",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "todoFunction24E2C7C6",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:execute-api:ap-southeast-2:909072294671:",
+                                      {
+                                        "Ref": "todoapiA0696EAD"
+                                      },
+                                      "/test-invoke-stage/POST/todo"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.63.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TodoStack/todo-api/Default/todo/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "POST",
+                                "resourceId": {
+                                  "Ref": "todoapitodoE3FF302A"
+                                },
+                                "restApiId": {
+                                  "Ref": "todoapiA0696EAD"
+                                },
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:apigateway:ap-southeast-2:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "todoFunction24E2C7C6",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.63.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.63.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.63.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                  "version": "2.63.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+              "version": "2.63.0"
+            }
+          },
           "CDKMetadata": {
             "id": "CDKMetadata",
             "path": "TodoStack/CDKMetadata",
