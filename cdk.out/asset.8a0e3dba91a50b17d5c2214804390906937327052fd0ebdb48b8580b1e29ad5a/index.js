@@ -20,18 +20,27 @@ exports.handler = async (event) => {
         console.log("event.body:", event.body);
         const item = JSON.parse(event.body).item;
 
-        console.log("item:", item);
+        console.log(event.body);
+
+        // Generate a unique ID for the item
+        const id = Date.now().toString();
 
         // Insert the item into the table
         await dynamo.put({
             TableName: tableName,
-            Item: item
+            Item: {
+                id: id,
+                item: item
+            }
         }).promise();
 
         // Return the inserted item as a response
         return {
             statusCode: 200,
-            body: JSON.stringify(item)
+            body: JSON.stringify({
+                id: id,
+                item: item
+            })
         };
     } else {
         // Return an error for unsupported HTTP methods

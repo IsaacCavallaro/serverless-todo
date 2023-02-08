@@ -129,7 +129,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-909072294671-ap-southeast-2",
-     "S3Key": "a296a6260fa66a1743501e7e1262e1b9cdab8b8361fb030b17c1fada02dc4e40.zip"
+     "S3Key": "005f4f32cab998b866fd40a4f7974aa03b56c546056fe25380414afc2075b031.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -151,7 +151,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "TodoStack/todoFunction/Resource",
-    "aws:asset:path": "asset.a296a6260fa66a1743501e7e1262e1b9cdab8b8361fb030b17c1fada02dc4e40",
+    "aws:asset:path": "asset.005f4f32cab998b866fd40a4f7974aa03b56c546056fe25380414afc2075b031",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
