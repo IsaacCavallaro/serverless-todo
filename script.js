@@ -30,8 +30,10 @@ document.addEventListener("DOMContentLoaded", async function() {
             setTimeout(() => reject(new Error("timeout")), 5000)
           )
         ]);
+        console.log(response);
       
         let data = await response.json();
+        console.log(data);
       
         let newLi = document.createElement("li");
         newLi.innerHTML = `<input type="checkbox"><span>${todo}</span> <b>Due:</b> ${due} <b>Priority: </b>${pri} <button class="done-button">Done</button><button class="delete-button">Delete</button>`;

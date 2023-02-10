@@ -53,7 +53,11 @@ export class TodoStack extends cdk.Stack {
           
           const todo = api.root.addResource('todo');
           
-          todo.addMethod('GET', lambdaIntegration);
-          todo.addMethod('POST', lambdaIntegration);
+          todo.addMethod('GET', lambdaIntegration, {
+            authorizationType: apigateway.AuthorizationType.NONE,
+          });
+          todo.addMethod('POST', lambdaIntegration, {
+            authorizationType: apigateway.AuthorizationType.NONE,
+          });
     }
 }

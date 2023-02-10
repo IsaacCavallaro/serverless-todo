@@ -10,9 +10,14 @@ exports.handler = async (event) => {
         const result = await dynamo.scan({ TableName: tableName }).promise();
         const items = result.Items;
 
-        // Return the items as a response
+        // Return the items as a response with CORS headers
         return {
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+            },
             body: JSON.stringify(items),
         };
     } else if (event.httpMethod === 'POST') {
@@ -28,15 +33,25 @@ exports.handler = async (event) => {
             Item: item
         }).promise();
 
-        // Return the inserted item as a response
+        // Return the inserted item as a response with CORS headers
         return {
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+            },
             body: JSON.stringify(item)
         };
     } else {
-        // Return an error for unsupported HTTP methods
+        // Return an error for unsupported HTTP methods with CORS headers
         return {
             statusCode: 400,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+            },
             body: 'Unsupported HTTP method'
         };
     }
